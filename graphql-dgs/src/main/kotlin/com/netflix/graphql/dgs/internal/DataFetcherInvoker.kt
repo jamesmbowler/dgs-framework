@@ -20,6 +20,8 @@ package com.netflix.graphql.dgs.internal
 import com.netflix.graphql.dgs.internal.method.ArgumentResolverComposite
 import graphql.schema.DataFetcher
 import graphql.schema.DataFetchingEnvironment
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.core.BridgeMethodResolver
 import org.springframework.core.CoroutinesUtils
 import org.springframework.core.KotlinDetector
@@ -36,6 +38,7 @@ class DataFetcherInvoker internal constructor(
     parameterNameDiscoverer: ParameterNameDiscoverer
 ) : DataFetcher<Any?> {
 
+    private val logger: Logger = LoggerFactory.getLogger(DataFetcherInvoker::class.java)
     private val bridgedMethod: Method = BridgeMethodResolver.findBridgedMethod(method)
     private val isSuspending: Boolean = KotlinDetector.isSuspendingFunction(bridgedMethod)
 
@@ -50,6 +53,8 @@ class DataFetcherInvoker internal constructor(
     }
 
     override fun get(environment: DataFetchingEnvironment): Any? {
+        logger.debug("test-------------------fff--");
+
         if (methodParameters.isEmpty()) {
             return ReflectionUtils.invokeMethod(bridgedMethod, dgsComponent)
         }

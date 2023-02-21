@@ -110,7 +110,7 @@ open class DgsRestController(
             return ResponseEntity.internalServerError().body("Unable to validate the HTTP Request Headers.")
         }
 
-        logger.debug("Starting HTTP GraphQL handling...")
+        logger.debug("--------Starting HTTP GraphQL handling...")
 
         val inputQuery: Map<String, Any>
         val queryVariables: Map<String, Any>
